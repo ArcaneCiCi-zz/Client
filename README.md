@@ -6,3 +6,14 @@
 ## Usage
 
     Originally used to grief a server known as AlwaysAlpha
+    
+## Keybinds
+
+    Xray: X
+    Xray Cycles: = or -
+    Fullbright: H
+    Instant: O
+    Flight: F
+    Timer | Speed: G
+    Spawn in Bedrock & drop inventory: C
+    
