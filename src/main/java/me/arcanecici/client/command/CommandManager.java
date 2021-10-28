@@ -1,6 +1,7 @@
 package me.arcanecici.client.command;
 
 import me.arcanecici.client.command.impl.DropCommand;
+import me.arcanecici.client.command.impl.GiveCommand;
 import me.arcanecici.client.command.impl.TpCommand;
 import me.arcanecici.client.command.impl.UpCommand;
 import me.arcanecici.client.util.ChatColor;
@@ -15,26 +16,25 @@ import java.util.List;
  */
 
 public class CommandManager {
-    public final UpCommand upCommand;
-    public final TpCommand tpCommand;
-    public final DropCommand dropCommand;
     private final List<Command> commands = new ArrayList<>();
 
     public CommandManager() {
-        this.commands.add(this.upCommand = new UpCommand());
-        this.commands.add(this.tpCommand = new TpCommand());
-        this.commands.add(this.dropCommand = new DropCommand());
+        this.commands.add(new UpCommand());
+        this.commands.add(new TpCommand());
+        this.commands.add(new DropCommand());
+        this.commands.add(new GiveCommand());
     }
 
     public void execute(String[] args) {
         String label = args[0].replace(".", "");
 
-        this.commands.forEach(command -> {
-            if (!command.getName().equalsIgnoreCase(label)) {
-                Minecraft.getMinecraft().ingameGUI.addChatMessage(ChatColor.RED + "Unknown command: \"." + label + "\"");
+        for (Command command : this.commands) {
+            if (command.getName().equalsIgnoreCase(label)) {
+                command.execute(label, Arrays.copyOfRange(args, 1, args.length));
                 return;
             }
-            command.execute(label, Arrays.copyOfRange(args, 1, args.length));
-        });
+        }
+
+        Minecraft.getMinecraft().ingameGUI.addChatMessage(ChatColor.RED + "Unknown command: \"." + label + "\"");
     }
 }

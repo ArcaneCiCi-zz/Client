@@ -222,13 +222,13 @@ public abstract class Minecraft implements Runnable {
         }
     }
 
-    public static void func_6269_a(String s, String s1) {
-        func_6253_a(s, s1, null);
+    public static void func_6269_a(String name, String id) {
+        func_6253_a(name, id, null);
     }
 
-    public static void func_6253_a(String s, String s1, String s2) {
+    public static void func_6253_a(String name, String s1, String s2) {
         boolean flag = false;
-        String s3 = s;
+        String s3 = name;
         Frame frame = new Frame("Minecraft");
         Canvas canvas = new Canvas();
         frame.setLayout(new BorderLayout());
@@ -256,17 +256,21 @@ public abstract class Minecraft implements Runnable {
     }
 
     public static void main(String[] args) {
-        String s = (new StringBuilder()).append("Player").append(System.currentTimeMillis() % 1000L).toString();
-        if (args.length > 0) {
-            s = args[0];
+
+        String username;
+        String id;
+
+        if (!(args.length > 0 && args.length > 1)) {
+            username = new StringBuilder().append("Player").append(System.currentTimeMillis() % 1000L).toString(); // generates Player(insert random int here) name
+            id = "-";
+        } else {
+            username = args[0];
+            id = args[1];
         }
-        String s1 = "-";
-        if (args.length > 1) {
-            s1 = args[1];
-        }
-        s = (new StringBuilder()).append("Player").append(System.currentTimeMillis() % 1000L).toString();
-        s = "Arcane"; // Debug purposes
-        func_6269_a(s, s1);
+
+
+        /*username = "Arcane";*/ // Used for debug purposes, you can set this to any name you want and it'll work on most servers for a1.2.6.
+        func_6269_a(username, id);
     }
 
     public abstract void func_4007_a(UnexpectedThrowable unexpectedthrowable);
@@ -319,6 +323,7 @@ public abstract class Minecraft implements Runnable {
         Keyboard.create();
         Mouse.create();
         mouseHelper = new MouseHelper(mcCanvas);
+
         try {
             Controllers.create();
         } catch (Exception exception) {
@@ -788,7 +793,7 @@ public abstract class Minecraft implements Runnable {
     public void toggleFullscreen() {
         try {
             mainFrame = !mainFrame;
-            System.out.println("Toggle fullscreen!");
+            System.out.println("Toggled fullscreen!");
             if (mainFrame) {
                 Display.setDisplayMode(Display.getDesktopDisplayMode());
                 displayWidth = Display.getDisplayMode().getWidth();
@@ -992,11 +997,13 @@ public abstract class Minecraft implements Runnable {
                             }
 
                             if (Client.getInstance().getModManager().getXrayModule().isEnabled() && Keyboard.getEventKey() == Keyboard.KEY_EQUALS) {
+                                Client.getInstance().getModManager().getXrayModule().updateCache();
                                 gameSettings.setOptionValue(9, 1);
                                 Client.getInstance().getModManager().getXrayModule().setCurrentXrayType(Client.getInstance().getModManager().getXrayModule().currentXrayType + 1);
                             }
 
                             if (Client.getInstance().getModManager().getXrayModule().isEnabled() && Keyboard.getEventKey() == Keyboard.KEY_MINUS) {
+                                Client.getInstance().getModManager().getXrayModule().updateCache();
                                 gameSettings.setOptionValue(9, 1);
                                 Client.getInstance().getModManager().getXrayModule().setCurrentXrayType(Client.getInstance().getModManager().getXrayModule().currentXrayType - 1);
                             }

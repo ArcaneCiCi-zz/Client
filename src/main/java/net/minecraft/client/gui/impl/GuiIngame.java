@@ -169,7 +169,7 @@ public class GuiIngame extends Gui {
         } else {
             for (Module module : Client.getInstance().getModManager().mods) {
                 if (module.isEnabled()) {
-                    module.update(); // tick
+                    module.tick(); // tick
                 }
             }
 

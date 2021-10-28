@@ -17,7 +17,7 @@ public class DropCommand extends Command {
     }
 
     @Override
-    public void execute(String cmdName, String[] args) {
+    public void execute(String cmdLabel, String[] args) {
         for (int i = 0; i < 64; i++) {
             Minecraft.getMinecraft().thePlayer.inventory.addItemStackToInventory(new ItemStack(Block.bedrock, 64));
             Minecraft.getMinecraft().thePlayer.inventory.dropAllItems();

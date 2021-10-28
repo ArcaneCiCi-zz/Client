@@ -46,7 +46,7 @@ public abstract class Module {
     public void setup() {
     }
 
-    public void update() {
+    public void tick() {
     }
 
 }

@@ -11,10 +11,13 @@ import lombok.Getter;
 @Getter
 public class Client {
 
-    @Getter
-    public static Client instance;
+    @Getter public static Client instance;
+
     public final ModuleManager modManager;
-    private final CommandManager commandManager;
+
+    public final CommandManager commandManager;
+
+    public final boolean debug = false;
 
     public Client() {
         instance = this;

@@ -1,5 +1,6 @@
 package me.arcanecici.client.module.impl;
 
+import me.arcanecici.client.Client;
 import me.arcanecici.client.module.Module;
 import lombok.Setter;
 import net.minecraft.client.blocks.Block;
@@ -23,6 +24,27 @@ public class XrayModule extends Module {
 
     public XrayModule() {
         super("Xray", false);
+        this.setColor(Color.MAGENTA.getRGB());
+    }
+
+    @Override
+    public void onEnable() {
+        this.currentXrayType = this.xrayTypeCache;
+        if (Client.getInstance().debug) System.out.println(this.xrayTypeCache);
+        this.mc.gameSettings.setOptionValue(9, 1);
+    }
+
+    @Override
+    public void onDisable() {
+        this.mc.gameSettings.setOptionValue(9, 1);
+        this.setCurrentXrayType(0);
+    }
+
+    @Override
+    public void setup() {
+        if (this.displayTypes == null || this.blockTypes == null) return;
+
+        this.displayTypes.put(0, "None");
         this.displayTypes.put(1, "Diamond");
         this.displayTypes.put(2, "Gold");
         this.displayTypes.put(3, "Iron");
@@ -36,27 +58,13 @@ public class XrayModule extends Module {
         this.blockTypes.put(4, Block.oreRedstone);
         this.blockTypes.put(5, Block.oreCoal);
         this.blockTypes.put(6, Block.chest);
-        this.setColor(Color.MAGENTA.getRGB());
-    }
-
-    @Override
-    public void onEnable() {
-        this.setCurrentXrayType(xrayTypeCache);
-        if (this.xrayTypeCache == 0) this.setCurrentXrayType(0);
-        this.mc.gameSettings.setOptionValue(9, 1);
-    }
-
-    @Override
-    public void onDisable() {
-        this.mc.gameSettings.setOptionValue(9, 1);
-        this.setCurrentXrayType(0);
-    }
-
-    @Override
-    public void setup() {
     }
 
     public void updateCache() {
-        this.xrayTypeCache = this.currentXrayType;
+        if (this.currentXrayType > 6) this.currentXrayType = 0;
+        if (this.currentXrayType < 0) this.currentXrayType = 6;
+
+        this.xrayTypeCache = this.currentXrayType + 1;
+        if (Client.getInstance().debug) System.out.println(this.xrayTypeCache);
     }
 }

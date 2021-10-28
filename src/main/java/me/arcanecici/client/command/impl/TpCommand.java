@@ -15,7 +15,7 @@ public class TpCommand extends Command {
     }
 
     @Override
-    public void execute(String cmdName, String[] args) {
+    public void execute(String cmdLabel, String[] args) {
 
         if (args.length != 3) {
             Minecraft.getMinecraft().ingameGUI.addChatMessage(ChatColor.RED + "Usage: .tp <x, y, z>");

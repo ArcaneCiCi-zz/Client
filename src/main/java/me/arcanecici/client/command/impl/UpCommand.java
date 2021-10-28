@@ -15,7 +15,7 @@ public class UpCommand extends Command {
     }
 
     @Override
-    public void execute(String cmdName, String[] args) {
+    public void execute(String cmdLabel, String[] args) {
         double y;
 
         if (args.length != 1) {

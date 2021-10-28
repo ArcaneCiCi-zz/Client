@@ -10,6 +10,5 @@ import lombok.Data;
 public abstract class Command {
     private final String name;
 
-    public void execute(String cmdName, String[] args) {
-    }
+    public abstract void execute(String cmdLabel, String[] args);
 }
